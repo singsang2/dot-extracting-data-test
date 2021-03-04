@@ -294,6 +294,7 @@ if __name__ == "__main__":
     df_ws = pd.DataFrame() # missing wheelchair/scooters
     df_db = pd.DataFrame() # denied boarding
 
+    # this will run through 2020 and 2021 websites
     urls = ['https://www.transportation.gov/individuals/aviation-consumer-protection/air-travel-consumer-reports-2020', 
             'https://www.transportation.gov/individuals/aviation-consumer-protection/air-travel-consumer-reports-2021']
     
