@@ -359,7 +359,7 @@ if __name__ == "__main__":
                 df_db = df_db[features_order['denied_boarding']]
                 REPORTS = update_reports()
                 print(f'Done.')
-            print(f'All {len(list_to_update)} files processed!')
+        print(f'All {len(list_to_update)} files processed!')
 
         # date information
         date = datetime.datetime.now().strftime("%m%d%Y")
