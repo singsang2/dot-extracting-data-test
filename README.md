@@ -7,6 +7,7 @@
 **Files:**
 - <a href='DOT_Extraction_Exploration.ipynb'>`DOT_Extraction_Exploration.ipynb`</a>: Jupyter notebook file where data extraction was explored
 - <a href='extract_dot_data.py'>`extract_dot_data.py`</a> : main python file that can be run to extract data from DOT about Air Travel Consumer Reports
+- <a href='extract_dot_data_2.py'>`extract_dot_data_2.py`</a> : main python file that can be run to extract data from DOT about Air Travel Consumer Reports (saves seperate csv files)
 
 # Purpose
 The main purposes of this project are
@@ -28,10 +29,11 @@ for different airlines in different months/years/quarters.
         [2] mishandled wheelchairs and scooters
 
         [3] denied boarding
+- When running <a href='extract_dot_data.py'>`extract_dot_data.py`</a>, `denied boarding` information get duplicated because DOT posts same quarterly data multiple times. This can be fixed easily by deleting duplicated rows.
 
 # Test Instruction
 If you would like to test out the code follow the instruction:
 - delete all the PDF reports from <a href='./reports'>`/reports`</a> directory.
-- Run `extract_dot_data.py`
+- Run <a href='extract_dot_data.py'>`extract_dot_data.py`</a> or <a href='extract_dot_data_2.py'>`extract_dot_data_2.py`</a>
 - Wait and see!
 

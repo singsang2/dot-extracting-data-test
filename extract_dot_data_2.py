@@ -297,16 +297,16 @@ if __name__ == "__main__":
     # DOT websites that contains reports
     REPORTS = update_reports()
 
-    # Instantiate dataframes
-    df_mb = pd.DataFrame() # missing baggages
-    df_ws = pd.DataFrame() # missing wheelchair/scooters
-    df_db = pd.DataFrame() # denied boarding
-
     # this will run through 2020 and 2021 websites
     urls = ['https://www.transportation.gov/individuals/aviation-consumer-protection/air-travel-consumer-reports-2020', 
             'https://www.transportation.gov/individuals/aviation-consumer-protection/air-travel-consumer-reports-2021']
     
     for url in urls:
+        # Instantiate dataframes
+        df_mb = pd.DataFrame() # missing baggages
+        df_ws = pd.DataFrame() # missing wheelchair/scooters
+        df_db = pd.DataFrame() # denied boarding
+
         # Gets the DOT page with reports
         soup = beautify_page(url)
 
@@ -334,7 +334,8 @@ if __name__ == "__main__":
                 df_mb = pd.concat([df_mb, df], axis=0)
                 # Changes the order of the features
                 df_mb = df_mb[features_order['mishandled_baggage']]
-                
+                m = '0'+str(month) if len(str(month))==1 else str(month)
+                file_name_mb = f'MB_{m}_{year}.csv'
                 
                 ## Mishandling Wheelchairs and Scooters ##
                 print('Processing... Mishandling W/S')
@@ -350,7 +351,9 @@ if __name__ == "__main__":
                 df_ws = pd.concat([df_ws, df], axis=0)
                 # Changes the order of the features
                 df_ws = df_ws[features_order['mishandled_ws']]
-                
+                m = '0'+str(month) if len(str(month))==1 else str(month)
+                file_name_ws = f'WS_{m}_{year}.csv'
+
                 ## Denied Boarding ##
                 print('Processing... Denied Boarding')
                 carrier_names, values, quarter, year = get_table_values_quarterly(filename, operating_pages[2])
@@ -365,19 +368,13 @@ if __name__ == "__main__":
                 df_db = pd.concat([df_db, df], axis=0)
                 # Changes the order of the features
                 df_db = df_db[features_order['denied_boarding']]
+                file_name_db = f'DB_Q{quarter}_{year}.csv'
+
                 REPORTS = update_reports()
-                print(f'Done.')
+
+                df_mb.to_csv(f'data/{file_name_mb}', index = False)
+                df_ws.to_csv(f'data/{file_name_ws}', index = False)
+                df_db.to_csv(f'data/{file_name_db}', index = False)
+                print(f'CSV Files have been saved.')
+
     print(f'All {len(list_to_update)} files processed!')
-
-    # date information
-    date = datetime.datetime.now().strftime("%m%d%Y")
-
-    # saves dataframes into csv files
-    file = 'dot_ms_report_' + date
-    df_mb.to_csv(f'data/{file}.csv', index = False)
-
-    file = 'dot_ws_report_' + date
-    df_ws.to_csv(f'data/{file}.csv', index = False)
-
-    file = 'dot_db_report_' + date
-    df_db.to_csv(f'data/{file}.csv', index = False)
